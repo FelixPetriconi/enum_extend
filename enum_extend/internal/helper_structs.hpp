@@ -17,7 +17,7 @@ namespace enum_extend
     struct NoDecoration {};
 
     /**
-    * Functor that returns a pairs first element
+    * Functor that returns a pair's first element
     * \tparam T a pair type
     */
     template<typename T>
@@ -32,7 +32,7 @@ namespace enum_extend
     };
 
     /**
-    * Functor that returns a pairs second element
+    * Functor that returns a pair's second element
     * \tparam T a pair type
     */
     template<typename T>

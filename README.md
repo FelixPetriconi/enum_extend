@@ -1,16 +1,56 @@
-Enum Library {#mainpage}
+Enum Extend {#mainpage}
 ============
 
 A C++ library that extends the functionality of enums.
 
-
 Motivation
 ----------
-tbd
+C++, the STL and boost lacks some often needed functionality in regard to enums:
+* It is not possible to iterate over all defined enumerated values.
+* There is no operator++/-- to advance to the next defined enumerated value.
+* Often enumerated values needs a string representation to further operations - at least to log those into files.
+
+Enum Extend Library Overview
+----------------------------
+The following is possible with this library:
+
+~~~
+  using enum_extend::range;
+  using enum_extend::extend;
+  using enum_extend::filtered_range;
   
-Enum Library Overview
------------------------
-tbd
+  enum Color
+  {
+    Red = 0, 
+    Green = 4, 
+    Blue = 8
+  };
+
+  // Let's walk over all defined values
+  for (auto c : range<Color>()) {
+    // ...
+  }
+  
+  auto c = Color::Red;
+  // we can increase as well
+  ++c;
+
+  // We iterate in reverse order over all defined values
+  std::vector<Color> allReverseColors;
+  std::copy(extend<Color>::rbegin(),
+            extend<Color>::rend(), 
+            std::back_inserter(allReverseColors));
+
+
+  // Just iterate over all values that match a certain criteria; 
+  // usefull if the enumerated values are defined as combined bit fields
+  auto FilterRed = [](Color c) { return c == Color::Red; };
+  for (auto c : filtered_range<Color>(FilterRed)) {
+    // Do just something with red values
+  }
+~~~
+TODO:
+The goal is that the necessary code can be used with minimal effort. Unfortunately this cannot be without some macro magic. Only this way it is possible to avoid code repetition.
 
 
 Documentation
@@ -35,14 +75,14 @@ License
 
 Version
 -------
-  0.1
+  1.0
 
 Prerequisites
 -------------
   * C++ 11 (partly, as far as Visual Studio 2013 supports it)
   * CMake 2.8 or later
   * Boost Preprocessor (1.55)
-  * GoogleTest 1.7 (Is part of the repository, because it's CMakeFiles.txt needs some patches to compile with Visual Studio)
+  * GoogleTest 1.7 (It is part of the repository, because it's CMakeFiles.txt needs some patches to compile with Visual Studio)
 
 
 Platform
@@ -55,16 +95,16 @@ Platform
 
 Installation Win
 ----------------
-  * Clone into e.g. D:\misc\enum_library
-  * Create a build folder, eg D:\misc\enum_library
-  * Open a command prompt in that enum_library_build
+  * Clone into e.g. D:\misc\enum_extend
+  * Create a build folder, eg D:\misc\enum_extend_build
+  * Open a command prompt in that enum_extend_build
   * Have CMake in the path
-  * Execute cmake -G "Visual Studio 11 Win64" ..\enum_library_build
-  * Open created solution in .\enum_library_build\enum_library.sln
+  * Execute cmake -G "Visual Studio 12 Win64" ..\enum_extend
+  * Open created solution in .\enum_extend_build\enum_library.sln
   * Compile and run all test
   
 ToDo
 ----
-  to be done 
-
-
+ * Creation macros
+ * Docs
+ * Tutorial
