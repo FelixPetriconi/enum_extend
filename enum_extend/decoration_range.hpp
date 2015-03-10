@@ -10,14 +10,14 @@
 
 #pragma once
 
-#include "enum_extender.hpp"
+#include "extender.hpp"
 
 namespace enum_extend
 {
   namespace v_1_0_0
   {
     template <typename T, typename D>
-    struct enum_decoration_range
+    struct decoration_range
     {
       using extender_const_iterator =
         typename extender<T, D>::const_iterator;

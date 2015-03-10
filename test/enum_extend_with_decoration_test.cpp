@@ -8,10 +8,10 @@
 //
 //////////////////////////////////////////////////////////////////
 
-#include "enum_extend/enum_extender.hpp"
+#include "enum_extend/extender.hpp"
+#include "enum_extend/range.hpp"
 #include "enum_extend/enum_range.hpp"
-#include "enum_extend/enum_value_range.hpp"
-#include "enum_extend/enum_decoration_range.hpp"
+#include "enum_extend/decoration_range.hpp"
 
 #include <gtest/gtest.h>
 #include <vector>
@@ -75,7 +75,7 @@ TEST_F(EnumExtendWitDecorationTest, Size)
 TEST_F(EnumExtendWitDecorationTest, Range)
 {
   size_t i = 0;
-  for (auto c : enum_extend::enum_range<Gray, ccharp>())
+  for (auto c : enum_extend::range<Gray, ccharp>())
   {
     EXPECT_EQ(reference[i], c);
     ++i;
@@ -85,7 +85,7 @@ TEST_F(EnumExtendWitDecorationTest, Range)
 TEST_F(EnumExtendWitDecorationTest, ValueRange)
 {
   size_t i = 0;
-  for (auto c : enum_extend::enum_value_range<Gray, ccharp>())
+  for (auto c : enum_extend::enum_range<Gray, ccharp>())
   {
     EXPECT_EQ(reference[i].first, c);
     ++i;
@@ -96,7 +96,7 @@ TEST_F(EnumExtendWitDecorationTest, ValueRange)
 TEST_F(EnumExtendWitDecorationTest, DecorationRange)
 {
   size_t i = 0;
-  for (auto c : enum_extend::enum_decoration_range<Gray, ccharp>())
+  for (auto c : enum_extend::decoration_range<Gray, ccharp>())
   {
     EXPECT_EQ(reference[i].second, c);
     ++i;
@@ -175,205 +175,3 @@ TEST_F(EnumExtendWitDecorationTest, OperatorMinusMinus)
   EXPECT_THROW(c--, std::exception);
 }
 
-
-// 
-// 
-// #define Gray_DECORATOR_SPECIIFIERS (DecoratedGray, Gray2, const char*, \
-//                                     (Black, "Black")\
-//                                     (DarkGray, "DarkGray")\
-//                                     (MidGray, "MidGray")\
-//                                     (LightGray, "LightGray")\
-//                                     (White, "White")) \
-// 
-// 
-// ENUM_LIB_DECLARE_ENUM_DECORATOR(Gray_DECORATOR_SPECIIFIERS)
-// 
-// ENUM_LIB_DEFINE_ENUM_DECORATOR(Gray_DECORATOR_SPECIIFIERS)
-// 
-// 
-// class EnumDecoratorTest : public ::testing::Test
-// {
-// public:
-//   EnumDecoratorTest()
-//     : enumReference({ Gray2::Black, Gray2::DarkGray, Gray2::MidGray, Gray2::LightGray, Gray2::White })
-//     , decoReference({"Black", "DarkGray", "MidGray", "LightGray", "White"})
-//   {
-// 
-//   }
-//   std::vector<Gray2> enumReference;
-//   std::vector<const char*> decoReference;
-// 
-// };
-// 
-// TEST_F(EnumDecoratorTest, Size)
-// {
-//   EXPECT_EQ(5, DecoratedGray::size());
-// }
-// 
-// struct EqualStr
-// {
-//   using result_type = bool;
-//   
-//   bool operator() (const char* x, const char* y) const {
-//     EXPECT_STREQ(y, x);
-//     return strcmp(x, y) == 0;
-//   }
-// };
-// 
-// TEST_F(EnumDecoratorTest, ForwardIterator)
-// {
-//   EXPECT_TRUE(std::equal(enumReference.begin(), 
-//                          enumReference.end(), 
-//                          DecoratedGray::vbegin()));
-//   
-//   EXPECT_TRUE(std::equal(DecoratedGray::vbegin(), 
-//                          DecoratedGray::vend(), 
-//                          enumReference.begin()));
-// 
-//   EXPECT_TRUE(std::equal(enumReference.begin(), 
-//                          enumReference.end(), 
-//                          std::begin(enum_extend::enum_value_range<DecoratedGray>())));
-// 
-//   EXPECT_TRUE(std::equal(std::begin(enum_extend::enum_value_range<DecoratedGray>()), 
-//                          std::end(enum_extend::enum_value_range<DecoratedGray>()), 
-//                          enumReference.begin()));
-// 
-// 
-//   EXPECT_TRUE(std::equal(decoReference.begin(), 
-//                          decoReference.end(), 
-//                          DecoratedGray::dbegin(), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(DecoratedGray::dbegin(), 
-//                          DecoratedGray::dend(), 
-//                          decoReference.begin(), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(decoReference.begin(), 
-//                          decoReference.end(), 
-//                          std::begin(enum_extend::enum_decoration_range<DecoratedGray>()), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(std::begin(enum_extend::enum_decoration_range<DecoratedGray>()),
-//                          std::end(enum_extend::enum_decoration_range<DecoratedGray>()), 
-//                          decoReference.begin(), 
-//                          EqualStr()));
-// }
-// 
-// TEST_F(EnumDecoratorTest, ReverseIterator)
-// {
-//   EXPECT_TRUE(std::equal(enumReference.rbegin(), 
-//                          enumReference.rend(), 
-//                          DecoratedGray::rvbegin()));
-// 
-//   EXPECT_TRUE(std::equal(DecoratedGray::rvbegin(), 
-//                          DecoratedGray::rvend(), 
-//                          enumReference.rbegin()));
-// 
-//   EXPECT_TRUE(std::equal(enumReference.rbegin(),
-//                          enumReference.rend(),
-//                          enum_extend::enum_value_range<DecoratedGray>().rbegin()));
-// 
-//   EXPECT_TRUE(std::equal(enum_extend::enum_value_range<DecoratedGray>().rbegin(),
-//                          enum_extend::enum_value_range<DecoratedGray>().rend(),
-//                          enumReference.rbegin()));
-// 
-//   EXPECT_TRUE(std::equal(decoReference.rbegin(), 
-//                          decoReference.rend(), 
-//                          DecoratedGray::rdbegin(), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(DecoratedGray::rdbegin(), 
-//                          DecoratedGray::rdend(), 
-//                          decoReference.rbegin(), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(decoReference.rbegin(),
-//                          decoReference.rend(),
-//                          enum_extend::enum_decoration_range<DecoratedGray>().rbegin(), 
-//                          EqualStr()));
-// 
-//   EXPECT_TRUE(std::equal(enum_extend::enum_decoration_range<DecoratedGray>().rbegin(),
-//                          enum_extend::enum_decoration_range<DecoratedGray>().rend(),
-//                          decoReference.rbegin(), 
-//                          EqualStr()));
-// }
-// 
-// 
-// TEST_F(EnumDecoratorTest, PlusPlusOperator)
-// {
-//   Gray2 c = Gray2::Black;
-//   EXPECT_EQ(Gray2::DarkGray, ++c);
-//   EXPECT_EQ(Gray2::MidGray, ++c);
-//   EXPECT_EQ(Gray2::LightGray, ++c);
-//   EXPECT_EQ(Gray2::White, ++c);
-//   EXPECT_THROW(++c, std::exception);
-// }
-// 
-// TEST_F(EnumDecoratorTest, OperatorPlusPlus)
-// {
-//   Gray2 c = Gray2::Black;
-//   EXPECT_EQ(Gray2::Black, c++);
-//   EXPECT_EQ(Gray2::DarkGray, c++);
-//   EXPECT_EQ(Gray2::MidGray, c++);
-//   EXPECT_EQ(Gray2::LightGray, c++);
-//   EXPECT_EQ(Gray2::White, c);
-//   EXPECT_THROW(c++, std::exception);
-// }
-// 
-// TEST_F(EnumDecoratorTest, MinusMinusOperator)
-// {
-//   Gray2 c = Gray2::White;
-//   EXPECT_EQ(Gray2::LightGray, --c);
-//   EXPECT_EQ(Gray2::MidGray, --c);
-//   EXPECT_EQ(Gray2::DarkGray, --c);
-//   EXPECT_EQ(Gray2::Black, --c);
-// 
-//   EXPECT_THROW(--c, std::exception);
-// }
-// 
-// TEST_F(EnumDecoratorTest, OperatorMinusMinus)
-// {
-//   Gray2 c = Gray2::White;
-//   EXPECT_EQ(Gray2::White, c--);
-//   EXPECT_EQ(Gray2::LightGray, c--);
-//   EXPECT_EQ(Gray2::MidGray, c--);
-//   EXPECT_EQ(Gray2::DarkGray, c--);
-//   EXPECT_EQ(Gray2::Black, c);
-// 
-//   EXPECT_THROW(c--, std::exception);
-// }
-// 
-// TEST_F(EnumDecoratorTest, ToDecoration)
-// {
-//   EXPECT_STREQ("Black", DecoratedGray::to_decoration(Gray2::Black));
-//   EXPECT_STREQ("DarkGray", DecoratedGray::to_decoration(Gray2::DarkGray));
-//   EXPECT_STREQ("MidGray", DecoratedGray::to_decoration(Gray2::MidGray));
-//   EXPECT_STREQ("LightGray", DecoratedGray::to_decoration(Gray2::LightGray));
-//   EXPECT_STREQ("White", DecoratedGray::to_decoration(Gray2::White));
-// 
-//   EXPECT_THROW(DecoratedGray::to_decoration((Gray2)-1), std::exception);
-// }
-// 
-// TEST_F(EnumDecoratorTest, To num)
-// {
-//   EXPECT_EQ(Gray2::Black, DecoratedGray::to_enum("Black"));
-//   EXPECT_EQ(Gray2::DarkGray, DecoratedGray::to_enum("DarkGray"));
-//   EXPECT_EQ(Gray2::MidGray, DecoratedGray::to_enum("MidGray"));
-//   EXPECT_EQ(Gray2::LightGray, DecoratedGray::to_enum("LightGray"));
-//   EXPECT_EQ(Gray2::White, DecoratedGray::to_enum("White"));
-// 
-//   EXPECT_THROW(DecoratedGray::to_enum("42"), std::exception);
-// }
-// 
-// 
-// #define GRAY_VALUES_SPECS (GrayValues, (Black, 0x1)(DarkGray, 0x2)(MidGray, 0x4)(LightGray, 0x8))
-// 
-// ENUM_LIB_DECLARE_EXPLICIT_ENUM(GRAY_VALUES_SPECS)
-// 
-// #define DECORATED_GRAY_VALUES_SPECS (GrayValuesDeco,                          \
-//   (Black, 0x1, "Black")(DarkGray, 0x2, "DarkGray")(MidGray, 0x4, "MidGray")\
-//   (LightGray, 0x8, "LightGray")) \
-// 
-// 
-// ENUM_LIB_DECLARE_EXPLICIT_DECORATED_ENUM(DECORATED_GRAY_VALUES_SPECS)

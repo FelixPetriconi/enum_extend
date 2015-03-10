@@ -8,8 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////
 
-#include "enum_extend/enum_extender.hpp"
-#include "enum_extend/enum_range.hpp"
+#include "enum_extend/extender.hpp"
+#include "enum_extend/range.hpp"
 
 #include <gtest/gtest.h>
 #include <vector>
@@ -65,7 +65,7 @@ TEST_F(EnumExtenderTest, Size)
 TEST_F(EnumExtenderTest, Range)
 {
   size_t i = 0;
-  for (auto c : enum_extend::enum_range<Color>())
+  for (auto c : enum_extend::range<Color>())
   {
     EXPECT_EQ(reference[i], c);
     ++i;

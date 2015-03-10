@@ -23,7 +23,7 @@ namespace enum_extend
   {
 
     template <typename T>
-    struct enum_value_range
+    struct range
     {
       typename T::const_value_iterator begin() { return T::all.vbegin(); }
       typename T::const_value_iterator end() { return T::all.vend(); }
@@ -33,7 +33,7 @@ namespace enum_extend
     };
 
     template <typename T>
-    struct enum_decoration_range
+    struct decoration_range
     {
       typename T::const_decoration_iterator begin() { return T::all.dbegin(); }
       typename T::const_decoration_iterator end() { return T::all.dend(); }
