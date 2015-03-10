@@ -11,11 +11,12 @@ set(SOURCE
 )
 
 set(HEADERS
-  ../enum_extend/range.hpp
   ../enum_extend/decoration_range.hpp
   ../enum_extend/enum_range.hpp
-  ../enum_extend/extender.hpp
   ../enum_extend/enum_decorator.hpp
+  ../enum_extend/extender.hpp
+  ../enum_extend/filtered_range.hpp
+  ../enum_extend/range.hpp
   ../enum_extend/internal/error_handling.hpp
   ../enum_extend/internal/helper_structs.hpp
 )

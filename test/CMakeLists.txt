@@ -19,6 +19,7 @@ set(HEADERS
 )
 
 set(SOURCE
+  enum_extend_filtered_range_test.cpp
   enum_extend_test.cpp
   enum_extend_with_decoration_test.cpp
   enum_extend_test_helper.hpp
