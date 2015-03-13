@@ -19,7 +19,8 @@ enum Color
   Red, Green, Blue
 };
 
-enum_extend::extender<Color>::instances enum_extend::extender<Color>::s_instances;
+template <>
+enum_extend::extender<Color>::instances enum_extend::extender<Color>::s_instances = {};
 enum_extend::extender<Color>  ColorExtender(Color::Red, Color::Green, Color::Blue);
 
 

@@ -26,7 +26,8 @@ ccharp DarkGrayC = "DarkGray";
 ccharp MidGrayC = "MidGray";
 ccharp LightGrayC = "LightGray";
 
-enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::s_instances;
+template <>
+enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::s_instances = {};
 enum_extend::extender<Gray, ccharp> GrayExtender({ { Gray::DarkGray, DarkGrayC }, 
                                                     { Gray::MidGray, MidGrayC }, 
                                                     { Gray::LightGray, LightGrayC } });

@@ -85,7 +85,12 @@ namespace enum_extend
         handle_error("Try to decrement before the first element!");
         return t;
       }
-
+// 
+//       template <typename TT>
+//       std::enable_if<is_decorated_>TT get_decoration(const T& t)
+//       {
+//         
+//       }
     private:
 
       static instances s_instances;
