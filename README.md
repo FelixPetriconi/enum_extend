@@ -48,9 +48,20 @@ The following is possible with this library:
   for (auto c : filtered_range<Color>(FilterRed)) {
     // Do just something with red values
   }
+  
+  
+  // easier can this be archived by the following macros:
+  
+  // for the header file
+  #define MACROCOLOR_ENUM_SPEC (MacroColorEnum, (Red)(Green)(Blue))
+  ENUM_EXTEND_DECLARE_ENUM(MACROCOLOR_ENUM_SPEC)
+  
+  // for the cpp file
+  ENUM_EXTEND_DEFINE_ENUM(MACROCOLOR_ENUM_SPEC)
+
 ~~~
-TODO:
-The goal is that the necessary code can be used with minimal effort. Unfortunately this cannot be without some macro magic. Only this way it is possible to avoid code repetition.
+
+Macros exist as well for creating an enum class or a typed enum class.
 
 
 Documentation
@@ -90,7 +101,7 @@ Platform
 | Compiler | Status |
 -----------|---------
 | Visual Studio 2013 x64 | All tests pass |
-| gcc, clang | tbd |
+| clang | All tests pass |
 
 
 Installation Win
@@ -105,6 +116,5 @@ Installation Win
   
 ToDo
 ----
- * Creation macros
  * Docs
  * Tutorial
