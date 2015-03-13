@@ -16,4 +16,3 @@
 #define ENUM_EXTEND_DEFINE_ENUM_CLASS(DEF)                                    \
   ENUM_EXTEND_DEFINE_ENUM(DEF)                                                \
 
-

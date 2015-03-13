@@ -24,5 +24,5 @@
   BOOST_PP_CAT(str,__LINE__)
 #endif
 
-#define ENUM_EXTEND_EXPANDER(r, data, elem) BOOST_PP_CAT(data, elem)
+#define ENUM_EXTEND_COLON_GLUE(r, data, elem) data::elem
 #define ENUM_EXTEND_EMBRACER(r, nil, elem) BOOST_PP_CAT( {, BOOST_PP_CAT(elem, } ) )

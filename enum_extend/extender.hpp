@@ -17,7 +17,6 @@
 #include <vector>
 #include <iterator>
 
-
 namespace enum_extend
 {
   namespace v_1_0_0
@@ -26,7 +25,7 @@ namespace enum_extend
     class extender
     {
       static const bool is_decorated_ = !std::is_same<D, NoDecoration>::value;
-      using value_type_ = std::conditional_t<is_decorated_, std::pair<T, D>, T>;
+      using value_type_ = typename std::conditional<is_decorated_, std::pair<T, D>, T>::type;
     public:
 
       using value_type = value_type_;

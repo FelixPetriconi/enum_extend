@@ -10,18 +10,21 @@
 
 #pragma once
 
-#define ENUM_EXTEND_DEFINE_ENUM_OPERATORS_BASE(ENUM)                            \
-  ENUM& operator++(ENUM& e) { return enum_extend::extender<ENUM>::increment(e); }\
-  ENUM& operator--(ENUM& e) { return enum_extend::extender<ENUM>::decrement(e); }\
+#define ENUM_EXTEND_DEFINE_ENUM_OPERATORS_BASE(ENUM)                          \
+  ENUM& operator++(ENUM& e) {                                                 \
+    return enum_extend::extender<ENUM>::increment(e);                         \
+  }                                                                           \
+  ENUM& operator--(ENUM& e) {                                                 \
+    return enum_extend::extender<ENUM>::decrement(e);                         \
+  }                                                                           \
   ENUM operator++(ENUM& e, int) {                                             \
     auto tmp = e;                                                             \
-    enum_extend::extender<ENUM>::increment(e);                                 \
+    enum_extend::extender<ENUM>::increment(e);                                \
     return tmp;                                                               \
   }                                                                           \
   ENUM operator--(ENUM& e, int) {                                             \
     auto tmp = e;                                                             \
-    enum_extend::extender<ENUM>::decrement(e);                                 \
+    enum_extend::extender<ENUM>::decrement(e);                                \
     return tmp;                                                               \
   }                                                                           \
-
 

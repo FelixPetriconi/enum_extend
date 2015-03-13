@@ -16,9 +16,8 @@ namespace enum_extend
 {
   namespace v_1_0_0
   {
-    inline void handle_error(const char* t)
-    {
-      throw std::exception(t);
+    inline void handle_error(const char*) {
+      throw std::exception();
     }
   }
   using namespace v_1_0_0;
