@@ -48,6 +48,16 @@ namespace enum_extend
       }
     };
 
+    template<size_t I, typename T>
+    struct TupleIndex
+    {
+      using type = T;
+      using result_type = typename std::tuple_element<I, T>::type;
+
+      result_type operator() (const T& t) const {
+        return std::get<I>(t);
+      }
+    };
   }
 
 

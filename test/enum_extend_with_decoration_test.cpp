@@ -99,7 +99,7 @@ TEST_F(EnumExtendWitDecorationTest, ValueRange)
 TEST_F(EnumExtendWitDecorationTest, DecorationRange)
 {
   size_t i = 0;
-  for (auto c : enum_extend::decoration_range<Gray, ccharp>())
+  for (auto c : enum_extend::decoration_range<1, Gray, ccharp>())
   {
     EXPECT_EQ(std::get<1>(reference[i]), c);
     ++i;

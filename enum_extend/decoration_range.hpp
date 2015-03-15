@@ -16,7 +16,7 @@ namespace enum_extend
 {
   namespace v_1_0_0
   {
-    template <typename T, typename... D> 
+    template <size_t I, typename T, typename... D> 
     struct decoration_range 
     {  
       using extender_const_iterator = typename extender<T, D...>::const_iterator;
@@ -25,10 +25,10 @@ namespace enum_extend
           typename extender<T, D...>::const_reverse_iterator;
 
       using const_decoration_iterator = boost::transform_iterator<
-          Second<typename extender<T, D...>::value_type>, extender_const_iterator>;
+        TupleIndex<I, typename extender<T, D...>::value_type>, extender_const_iterator>;
       
       using const_decoration_reverse_iterator =
-          boost::transform_iterator<Second<typename extender<T, D...>::value_type>,
+        boost::transform_iterator<TupleIndex<I, typename extender<T, D...>::value_type>,
                                     extender_const_reverse_iterator>;
 
       const_decoration_iterator begin() {
