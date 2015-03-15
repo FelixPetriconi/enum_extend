@@ -16,33 +16,33 @@ namespace enum_extend
 {
   namespace v_1_0_0
   {
-    template <typename T, typename D> 
+    template <typename T, typename... D> 
     struct decoration_range 
     {  
-      using extender_const_iterator = typename extender<T, D>::const_iterator;
+      using extender_const_iterator = typename extender<T, D...>::const_iterator;
       
       using extender_const_reverse_iterator =
-          typename extender<T, D>::const_reverse_iterator;
+          typename extender<T, D...>::const_reverse_iterator;
 
       using const_decoration_iterator = boost::transform_iterator<
-          Second<typename extender<T, D>::value_type>, extender_const_iterator>;
+          Second<typename extender<T, D...>::value_type>, extender_const_iterator>;
       
       using const_decoration_reverse_iterator =
-          boost::transform_iterator<Second<typename extender<T, D>::value_type>,
+          boost::transform_iterator<Second<typename extender<T, D...>::value_type>,
                                     extender_const_reverse_iterator>;
 
       const_decoration_iterator begin() {
-        return const_decoration_iterator(extender<T, D>::begin());
+        return const_decoration_iterator(extender<T, D...>::begin());
       }
       const_decoration_iterator end() {
-        return const_decoration_iterator(extender<T, D>::end());
+        return const_decoration_iterator(extender<T, D...>::end());
       }
 
       const_decoration_reverse_iterator rbegin() {
-        return const_decoration_reverse_iterator(extender<T, D>::rbegin());
+        return const_decoration_reverse_iterator(extender<T, D...>::rbegin());
       }
       const_decoration_reverse_iterator rend() {
-        return const_decoration_reverse_iterator(extender<T, D>::rend());
+        return const_decoration_reverse_iterator(extender<T, D...>::rend());
       }
     };
     }

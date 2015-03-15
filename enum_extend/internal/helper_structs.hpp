@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <tuple>
+
 namespace enum_extend
 {
   namespace v_1_0_0
@@ -24,10 +26,10 @@ namespace enum_extend
     struct First
     {
       using type = T;
-      using result_type = typename T::first_type;
+      using result_type = typename std::tuple_element<0, T>::type;
 
-      result_type operator()(const T& pair) const {
-        return pair.first;
+      result_type operator()(const T& t) const {
+        return std::get<0>(t);
       }
     };
 
@@ -39,10 +41,10 @@ namespace enum_extend
     struct Second
     {
       using type = T;
-      using result_type = typename T::second_type;;
+      using result_type = typename std::tuple_element<1, T>::type;
 
-      result_type operator() (const T& pair) const {
-        return pair.second;
+      result_type operator() (const T& t) const {
+        return std::get<1>(t);
       }
     };
 

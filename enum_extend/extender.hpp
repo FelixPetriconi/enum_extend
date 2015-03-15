@@ -13,6 +13,7 @@
 #include "internal/error_handling.hpp"
 #include "internal/helper_structs.hpp"
 
+#include <type_traits>
 #include <algorithm>
 #include <vector>
 #include <iterator>
@@ -21,11 +22,11 @@ namespace enum_extend
 {
   namespace v_1_0_0
   {
-    template<typename T, typename D = NoDecoration>
+    template<typename T, typename... D>
     class extender
     {
-      static const bool is_decorated_ = !std::is_same<D, NoDecoration>::value;
-      using value_type_ = typename std::conditional<is_decorated_, std::pair<T, D>, T>::type;
+      static const bool is_decorated_ = sizeof...(D) != 0;
+      using value_type_ = typename std::conditional<is_decorated_, std::tuple<T, D...>, T>::type;
     public:
 
       using value_type = value_type_;

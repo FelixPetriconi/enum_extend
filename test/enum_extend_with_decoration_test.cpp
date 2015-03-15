@@ -28,11 +28,11 @@ ccharp LightGrayC = "LightGray";
 
 template <>
 enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::s_instances = {};
-enum_extend::extender<Gray, ccharp> GrayExtender({ { Gray::DarkGray, DarkGrayC }, 
-                                                    { Gray::MidGray, MidGrayC }, 
-                                                    { Gray::LightGray, LightGrayC } });
+enum_extend::extender<Gray, ccharp> GrayExtender({ std::make_tuple( Gray::DarkGray, DarkGrayC ), 
+                                                    std::make_tuple( Gray::MidGray, MidGrayC ), 
+                                                    std::make_tuple( Gray::LightGray, LightGrayC ) });
 
-using DecoratedGray = std::pair<Gray, ccharp>;
+using DecoratedGray = std::tuple<Gray, ccharp>;
 DecoratedGray& operator++(DecoratedGray& e);
 DecoratedGray& operator--(DecoratedGray& e);
 DecoratedGray operator++(DecoratedGray& e, int);
@@ -61,10 +61,12 @@ class EnumExtendWitDecorationTest : public ::testing::Test
 {
 public:
   EnumExtendWitDecorationTest()
-    : reference({ { Gray::DarkGray, DarkGrayC }, { Gray::MidGray, MidGrayC }, { Gray::LightGray, LightGrayC } })
+    : reference({ std::make_tuple( Gray::DarkGray, DarkGrayC ), 
+                  std::make_tuple( Gray::MidGray, MidGrayC ), 
+                  std::make_tuple( Gray::LightGray, LightGrayC ) })
   {}
 
-  std::vector<std::pair<Gray, ccharp>> reference;
+  std::vector<std::tuple<Gray, ccharp>> reference;
 };
 
 
@@ -88,7 +90,7 @@ TEST_F(EnumExtendWitDecorationTest, ValueRange)
   size_t i = 0;
   for (auto c : enum_extend::enum_range<Gray, ccharp>())
   {
-    EXPECT_EQ(reference[i].first, c);
+    EXPECT_EQ(std::get<0>(reference[i]), c);
     ++i;
   }
 }
@@ -99,7 +101,7 @@ TEST_F(EnumExtendWitDecorationTest, DecorationRange)
   size_t i = 0;
   for (auto c : enum_extend::decoration_range<Gray, ccharp>())
   {
-    EXPECT_EQ(reference[i].second, c);
+    EXPECT_EQ(std::get<1>(reference[i]), c);
     ++i;
   }
 }
@@ -141,37 +143,37 @@ TEST_F(EnumExtendWitDecorationTest, ReverseIterators)
 
 TEST_F(EnumExtendWitDecorationTest, PlusPlusOperator)
 {
-  auto c = std::make_pair(Gray::DarkGray, DarkGrayC);
-  EXPECT_EQ(std::make_pair(Gray::MidGray, MidGrayC), ++c);
-  EXPECT_EQ(std::make_pair(Gray::LightGray, LightGrayC), ++c);
+  auto c = std::make_tuple(Gray::DarkGray, DarkGrayC);
+  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), ++c);
+  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), ++c);
   EXPECT_THROW(++c, std::exception);
 }
 
 TEST_F(EnumExtendWitDecorationTest, OperatorPlusPlus)
 {
-  auto c = std::make_pair(Gray::DarkGray, DarkGrayC);
-  EXPECT_EQ(std::make_pair(Gray::DarkGray, DarkGrayC), c++);
-  EXPECT_EQ(std::make_pair(Gray::MidGray, MidGrayC), c++);
-  EXPECT_EQ(std::make_pair(Gray::LightGray, LightGrayC), c);
+  auto c = std::make_tuple(Gray::DarkGray, DarkGrayC);
+  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), c++);
+  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), c++);
+  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), c);
   EXPECT_THROW(c++, std::exception);
 }
 
 
 TEST_F(EnumExtendWitDecorationTest, MinusMinusOperator)
 {
-  auto c = std::make_pair(Gray::LightGray, LightGrayC);
-  EXPECT_EQ(std::make_pair(Gray::MidGray, MidGrayC), --c);
-  EXPECT_EQ(std::make_pair(Gray::DarkGray, DarkGrayC), --c);
+  auto c = std::make_tuple(Gray::LightGray, LightGrayC);
+  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), --c);
+  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), --c);
   
   EXPECT_THROW(--c, std::exception);
 }
 
 TEST_F(EnumExtendWitDecorationTest, OperatorMinusMinus)
 {
-  auto c = std::make_pair(Gray::LightGray, LightGrayC);
-  EXPECT_EQ(std::make_pair(Gray::LightGray, LightGrayC), c--);
-  EXPECT_EQ(std::make_pair(Gray::MidGray, MidGrayC), c--);
-  EXPECT_EQ(std::make_pair(Gray::DarkGray, DarkGrayC), c);
+  auto c = std::make_tuple(Gray::LightGray, LightGrayC);
+  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), c--);
+  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), c--);
+  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), c);
   
   EXPECT_THROW(c--, std::exception);
 }
