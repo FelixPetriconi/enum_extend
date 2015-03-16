@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "internal/compiler_support.hpp"
+#include "compiler_support.hpp"
 
 #include <tuple>
 
