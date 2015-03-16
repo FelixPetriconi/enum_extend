@@ -12,6 +12,7 @@
 
 #include "internal/error_handling.hpp"
 #include "internal/helper_structs.hpp"
+#include "internal/tupple_helper.hpp"
 
 #include <type_traits>
 #include <algorithm>
@@ -85,12 +86,18 @@ namespace enum_extend
         handle_error("Try to decrement before the first element!");
         return t;
       }
-// 
-//       template <typename TT>
-//       std::enable_if<is_decorated_>TT get_decoration(const T& t)
-//       {
-//         
-//       }
+
+      template <typename TT>
+      static typename std::enable_if<is_decorated_, TT>::type get_decoration(const T& t)
+      {
+        auto findIt = std::find_if(begin(), end(), [&t](const value_type& v) { return std::get<0>(v) == t; });
+        if (findIt != end())
+        {
+          return std::get<TupleTypeIndex<TT, value_type>::value>(*findIt);
+        }
+        handle_error("Access to not defined enumerated value!");
+        return TT();
+      }
     private:
 
       static instances s_instances;

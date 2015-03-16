@@ -23,6 +23,7 @@ set(SOURCE
   enum_extend_test.cpp
   enum_extend_declare_enum_test.cpp
   enum_extend_with_decoration_test.cpp
+  enum_extend_with_multiple_decorations_test.cpp
   enum_extend_test_helper.hpp
   main.cpp
 )

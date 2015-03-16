@@ -30,6 +30,7 @@ set(HEADERS
   ../enum_extend/internal/error_handling.hpp
   ../enum_extend/internal/helper_structs.hpp
   ../enum_extend/internal/macro_helper.hpp
+  ../enum_extend/internal/tupple_helper.hpp
 )
 
 include_directories(${Boost_INCLUDE_DIRS})
