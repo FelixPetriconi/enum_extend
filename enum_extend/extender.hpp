@@ -13,6 +13,7 @@
 #include "internal/error_handling.hpp"
 #include "internal/helper_structs.hpp"
 #include "internal/tupple_helper.hpp"
+#include "internal/compiler_support.hpp"
 
 #include <type_traits>
 #include <algorithm>
@@ -21,6 +22,7 @@
 
 namespace enum_extend
 {
+  INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
     template<typename T, typename... D>
@@ -103,5 +105,5 @@ namespace enum_extend
       static instances s_instances;
     };
   }
-  using namespace v_1_0_0;
+  USING_VERSION_NAMESPACE
 }

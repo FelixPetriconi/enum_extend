@@ -11,9 +11,11 @@
 #pragma once
 
 #include "extender.hpp"
+#include "internal/compiler_support.hpp"
 
 namespace enum_extend
 {
+  INLINE_NAMESPACE_STANDIN
   namespace v_1_0_0
   {
     template <size_t I, typename T, typename... D> 
@@ -45,5 +47,7 @@ namespace enum_extend
         return const_decoration_reverse_iterator(extender<T, D...>::rend());
       }
     };
-    }
+  }
+
+  USING_VERSION_NAMESPACE
 }

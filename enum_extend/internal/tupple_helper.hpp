@@ -10,10 +10,13 @@
 
 #pragma once
 
+#include "internal/compiler_support.hpp"
+
 #include <tuple>
 
 namespace enum_extend
 {
+  INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
 
@@ -30,4 +33,5 @@ namespace enum_extend
       static const std::size_t value = 1 + TupleTypeIndex<T, std::tuple<Types...>>::value;
     };
   }
+  USING_VERSION_NAMESPACE
 }

@@ -24,6 +24,7 @@ set(HEADERS
   ../enum_extend/extender.hpp
   ../enum_extend/filtered_range.hpp
   ../enum_extend/range.hpp
+  ../enum_extend/internal/compiler_support.hpp
   ../enum_extend/internal/declare_operators_helpers.hpp
   ../enum_extend/internal/define_enum_helper.hpp
   ../enum_extend/internal/define_operators_helpers.hpp

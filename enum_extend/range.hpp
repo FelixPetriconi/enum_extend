@@ -14,6 +14,7 @@
 
 namespace enum_extend
 {
+  INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
     template <typename T, typename... D>
@@ -29,5 +30,5 @@ namespace enum_extend
       const_reverse_iterator rend() { return extender<T, D...>::rend(); }
     };
   }
-  using namespace v_1_0_0;
+  USING_VERSION_NAMESPACE
 }

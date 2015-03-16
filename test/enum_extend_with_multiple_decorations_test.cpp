@@ -136,6 +136,10 @@ TEST_F(EnumExtendWitMultipleDecorationTest, SecondDecorationRange)
 TEST_F(EnumExtendWitMultipleDecorationTest, GetDecorationRange)
 {
   EXPECT_EQ(DarkBlueC, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<ccharp>(Blue::DarkBlue)) );
+  EXPECT_EQ(LightBlueC, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<ccharp>(Blue::LightBlue)));
+
+  EXPECT_EQ(sdDarkBlue, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<StructuredDeco>(Blue::DarkBlue)));
+  EXPECT_EQ(sdLightBlue, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<StructuredDeco>(Blue::LightBlue)));
 }
 
 TEST_F(EnumExtendWitMultipleDecorationTest, ForwardIterators)

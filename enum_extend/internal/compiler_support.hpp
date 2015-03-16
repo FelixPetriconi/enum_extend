@@ -10,17 +10,12 @@
 
 #pragma once
 
-#include "compiler_support.hpp"
-#include <exception>
+#include <boost/config.hpp>
 
-namespace enum_extend
-{
-  INLINE_NAMESPACE_STANDIN
-  namespace v_1_0_0
-  {
-    inline void handle_error(const char*) {
-      throw std::exception();
-    }
-  }
-  USING_VERSION_NAMESPACE
-}
+#ifdef BOOST_NO_CXX11_INLINE_NAMESPACES 
+#define INLINE_NAMESPACE_STANDIN
+#define USING_VERSION_NAMESPACE using namespace v_1_0_0;
+#else
+#define INLINE_NAMESPACE_STANDIN inline
+#define USING_VERSION_NAMESPACE
+#endif

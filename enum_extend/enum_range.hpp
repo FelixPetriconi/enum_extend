@@ -13,8 +13,11 @@
 #include "extender.hpp"
 #include <boost/iterator/transform_iterator.hpp>
 
-namespace enum_extend {
-  namespace v_1_0_0 {
+namespace enum_extend 
+{
+  INLINE_NAMESPACE_STANDIN
+  namespace v_1_0_0
+  {
 
     template <typename T, typename... D> 
     struct enum_range {
@@ -43,4 +46,6 @@ namespace enum_extend {
       }
     };
   }
+
+  USING_VERSION_NAMESPACE
 }

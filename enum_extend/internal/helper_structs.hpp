@@ -10,10 +10,13 @@
 
 #pragma once
 
+#include "internal/compiler_support.hpp"
+
 #include <tuple>
 
 namespace enum_extend
 {
+  INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
     struct NoDecoration {};
@@ -59,6 +62,6 @@ namespace enum_extend
       }
     };
   }
-
+  USING_VERSION_NAMESPACE
 
 }
