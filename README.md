@@ -66,7 +66,7 @@ Macros exist as well for creating an enum class or a typed enum class.
 
 Documentation
 -------------
-tbd
+A first tutorial is [here](https://github.com/FelixPetriconi/enum_extend/wiki/Tutorial)
 
 Author 
 ------
@@ -117,4 +117,4 @@ Installation Win
 ToDo
 ----
  * Docs
- * Tutorial
+ 
