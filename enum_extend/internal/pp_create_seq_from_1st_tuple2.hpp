@@ -12,7 +12,6 @@
 
 #include "pp_helper.hpp"
 
-
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/comma_if.hpp>
@@ -20,9 +19,10 @@
 
 // These makros are needed to create from a sequence of (a,b)(c,d)... an 
 // initializerlist of {a,b}, {c,d}, ...
-#define ENUM_LIB_CREATE_ENUMS_IMPL(r,_, index, decorations)  \
-  BOOST_PP_COMMA_IF(index) BOOST_PP_TUPLE_ELEM(2, 0, decorations)    \
+#define ENUM_EXTEND_CREATE_SEQ_FROM_1st_TUPLE2_ELEMENT_IMP(r,_, index, tuple_elements) \
+  BOOST_PP_COMMA_IF(index) BOOST_PP_TUPLE_ELEM(2, 0, tuple_elements)          \
 
-#define ENUM_LIB_CREATE_ENUMS_FROM_DECORATED_ENUMERATIONS_BASE(decorations)                     \
-  BOOST_PP_SEQ_FOR_EACH_I(ENUM_LIB_CREATE_ENUMS_IMPL, _,           \
-    BOOST_PP_CAT(ENUM_LIB_PLACEHOLDER_FILLER_0 decorations,_END))
+#define ENUM_EXTEND_CREATE_SEQ_FROM_1st_TUPLE2_ELEMENT(tuples)                \
+  BOOST_PP_SEQ_FOR_EACH_I(ENUM_EXTEND_CREATE_SEQ_FROM_1st_TUPLE2_ELEMENT_IMP, _, \
+    BOOST_PP_CAT(ENUM_EXTEND_PLACEHOLDER_FILLER_0 tuples,_END))               \
+

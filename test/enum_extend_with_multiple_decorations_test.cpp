@@ -42,35 +42,38 @@ const StructuredDeco sdLightBlue = { "Nice Light Blue" };
 
 template <>
 enum_extend::extender<Blue, StructuredDeco, ccharp>::instances 
-  enum_extend::extender<Blue, StructuredDeco, ccharp>::s_instances = {};
-
-enum_extend::extender<Blue, StructuredDeco, ccharp> BlueExtender({ 
-  std::make_tuple( Blue::DarkBlue, sdDarkBlue, DarkBlueC ), 
-  std::make_tuple( Blue::MidBlue, sdMidBlue, MidBlueC ), 
-  std::make_tuple( Blue::LightBlue, sdLightBlue, LightBlueC ) });
+  enum_extend::extender<Blue, StructuredDeco, ccharp>::all_values = {
+    std::make_tuple( Blue::DarkBlue, sdDarkBlue, DarkBlueC ), 
+    std::make_tuple( Blue::MidBlue, sdMidBlue, MidBlueC ), 
+    std::make_tuple( Blue::LightBlue, sdLightBlue, LightBlueC ) 
+  };
 
 using DecoratedBlue = std::tuple<Blue, StructuredDeco, ccharp>;
-DecoratedBlue& operator++(DecoratedBlue& e);
-DecoratedBlue& operator--(DecoratedBlue& e);
-DecoratedBlue operator++(DecoratedBlue& e, int);
-DecoratedBlue operator--(DecoratedBlue& e, int);
+Blue& operator++(Blue& e);
+Blue& operator--(Blue& e);
+Blue operator++(Blue& e, int);
+Blue operator--(Blue& e, int);
 
 
-DecoratedBlue& operator++(DecoratedBlue& e) { return enum_extend::extender<Blue, StructuredDeco, ccharp>::increment(e); }
-DecoratedBlue& operator--(DecoratedBlue& e) { return enum_extend::extender<Blue, StructuredDeco, ccharp>::decrement(e); }
-DecoratedBlue operator++(DecoratedBlue& e, int) {
-    auto tmp = e;                                                            
-    enum_extend::extender<Blue, StructuredDeco, ccharp>::increment(e);
-    return tmp;                                                              
-  }          
+Blue& operator++(Blue& e) { 
+  return enum_extend::extender<Blue, StructuredDeco, ccharp>::increment(e); 
+}
 
-DecoratedBlue operator--(DecoratedBlue& e, int) {
-    auto tmp = e;                                                            
-    enum_extend::extender<Blue, StructuredDeco, ccharp>::decrement(e);
-    return tmp;                                                              
-  }                                                                          
+Blue& operator--(Blue& e) { 
+  return enum_extend::extender<Blue, StructuredDeco, ccharp>::decrement(e); 
+}
 
+Blue operator++(Blue& e, int) {
+  auto tmp = e;                                                            
+  enum_extend::extender<Blue, StructuredDeco, ccharp>::increment(e);
+  return tmp;                                                              
+}          
 
+Blue operator--(Blue& e, int) {
+  auto tmp = e;                                                            
+  enum_extend::extender<Blue, StructuredDeco, ccharp>::decrement(e);
+  return tmp;                                                              
+}                                                                          
 
 
 
@@ -135,11 +138,19 @@ TEST_F(EnumExtendWitMultipleDecorationTest, SecondDecorationRange)
 
 TEST_F(EnumExtendWitMultipleDecorationTest, GetDecorationRange)
 {
-  EXPECT_EQ(DarkBlueC, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<ccharp>(Blue::DarkBlue)) );
-  EXPECT_EQ(LightBlueC, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<ccharp>(Blue::LightBlue)));
+  EXPECT_EQ(DarkBlueC, 
+            (enum_extend::extender<Blue, StructuredDeco, ccharp>
+              ::get_decoration<ccharp>(Blue::DarkBlue)) );
+  EXPECT_EQ(LightBlueC, 
+            (enum_extend::extender<Blue, StructuredDeco, ccharp>
+              ::get_decoration<ccharp>(Blue::LightBlue)));
 
-  EXPECT_EQ(sdDarkBlue, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<StructuredDeco>(Blue::DarkBlue)));
-  EXPECT_EQ(sdLightBlue, (enum_extend::extender<Blue, StructuredDeco, ccharp>::get_decoration<StructuredDeco>(Blue::LightBlue)));
+  EXPECT_EQ(sdDarkBlue, 
+            (enum_extend::extender<Blue, StructuredDeco, ccharp>
+              ::get_decoration<StructuredDeco>(Blue::DarkBlue)));
+  EXPECT_EQ(sdLightBlue, 
+            (enum_extend::extender<Blue, StructuredDeco, ccharp>
+              ::get_decoration<StructuredDeco>(Blue::LightBlue)));
 }
 
 TEST_F(EnumExtendWitMultipleDecorationTest, ForwardIterators)
@@ -178,37 +189,37 @@ TEST_F(EnumExtendWitMultipleDecorationTest, ReverseIterators)
 
 TEST_F(EnumExtendWitMultipleDecorationTest, PlusPlusOperator)
 {
-  auto c = std::make_tuple(Blue::DarkBlue, sdDarkBlue, DarkBlueC);
-  EXPECT_EQ(std::make_tuple(Blue::MidBlue, sdMidBlue, MidBlueC), ++c);
-  EXPECT_EQ(std::make_tuple(Blue::LightBlue, sdLightBlue, LightBlueC), ++c);
+  auto c = Blue::DarkBlue;
+  EXPECT_EQ(Blue::MidBlue, ++c);
+  EXPECT_EQ(Blue::LightBlue, ++c);
   EXPECT_THROW(++c, std::exception);
 }
 
 TEST_F(EnumExtendWitMultipleDecorationTest, OperatorPlusPlus)
 {
-  auto c = std::make_tuple(Blue::DarkBlue, sdDarkBlue, DarkBlueC);
-  EXPECT_EQ(std::make_tuple(Blue::DarkBlue, sdDarkBlue, DarkBlueC), c++);
-  EXPECT_EQ(std::make_tuple(Blue::MidBlue, sdMidBlue, MidBlueC), c++);
-  EXPECT_EQ(std::make_tuple(Blue::LightBlue, sdLightBlue, LightBlueC), c);
+  auto c = Blue::DarkBlue;
+  EXPECT_EQ(Blue::DarkBlue, c++);
+  EXPECT_EQ(Blue::MidBlue, c++);
+  EXPECT_EQ(Blue::LightBlue, c);
   EXPECT_THROW(c++, std::exception);
 }
 
 
 TEST_F(EnumExtendWitMultipleDecorationTest, MinusMinusOperator)
 {
-  auto c = std::make_tuple(Blue::LightBlue, sdLightBlue, LightBlueC);
-  EXPECT_EQ(std::make_tuple(Blue::MidBlue, sdMidBlue, MidBlueC), --c);
-  EXPECT_EQ(std::make_tuple(Blue::DarkBlue, sdDarkBlue, DarkBlueC), --c);
+  auto c = Blue::LightBlue;
+  EXPECT_EQ(Blue::MidBlue, --c);
+  EXPECT_EQ(Blue::DarkBlue, --c);
   
   EXPECT_THROW(--c, std::exception);
 }
 
 TEST_F(EnumExtendWitMultipleDecorationTest, OperatorMinusMinus)
 {
-  auto c = std::make_tuple(Blue::LightBlue, sdLightBlue, LightBlueC);
-  EXPECT_EQ(std::make_tuple(Blue::LightBlue, sdLightBlue, LightBlueC), c--);
-  EXPECT_EQ(std::make_tuple(Blue::MidBlue, sdMidBlue, MidBlueC), c--);
-  EXPECT_EQ(std::make_tuple(Blue::DarkBlue, sdDarkBlue, DarkBlueC), c);
+  auto c = Blue::LightBlue;
+  EXPECT_EQ(Blue::LightBlue, c--);
+  EXPECT_EQ(Blue::MidBlue, c--);
+  EXPECT_EQ(Blue::DarkBlue, c);
   
   EXPECT_THROW(c--, std::exception);
 }

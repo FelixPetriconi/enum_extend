@@ -20,8 +20,9 @@ enum Color
 };
 
 template <>
-enum_extend::extender<Color>::instances enum_extend::extender<Color>::s_instances = {};
-enum_extend::extender<Color>  ColorExtender(Color::Red, Color::Green, Color::Blue);
+enum_extend::extender<Color>::instances enum_extend::extender<Color>::all_values = {
+  Color::Red, Color::Green, Color::Blue 
+};
 
 
 Color& operator++(Color& e);                                                  

@@ -11,8 +11,9 @@
 #pragma once
 
 #include "compiler_support.hpp"
-
+#include "../extender.hpp"
 #include <tuple>
+#include <algorithm>
 
 namespace enum_extend
 {
@@ -61,6 +62,9 @@ namespace enum_extend
         return std::get<I>(t);
       }
     };
+
+
+
   }
   USING_VERSION_NAMESPACE
 

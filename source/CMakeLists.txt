@@ -12,14 +12,10 @@ set(SOURCE
 
 set(HEADERS
   ../enum_extend/declare_enum.hpp
-  ../enum_extend/declare_enum_class.hpp
-  ../enum_extend/declare_typed_enum.hpp
-  ../enum_extend/declare_typed_enum_class.hpp
+  ../enum_extend/declare_decorated_enum.hpp
   ../enum_extend/decoration_range.hpp
+  ../enum_extend/define_decorated_enum.hpp
   ../enum_extend/define_enum.hpp
-  ../enum_extend/define_enum_class.hpp
-  ../enum_extend/define_typed_enum.hpp
-  ../enum_extend/define_typed_enum_class.hpp
   ../enum_extend/enum_range.hpp
   ../enum_extend/extender.hpp
   ../enum_extend/filtered_range.hpp
@@ -31,6 +27,11 @@ set(HEADERS
   ../enum_extend/internal/error_handling.hpp
   ../enum_extend/internal/helper_structs.hpp
   ../enum_extend/internal/macro_helper.hpp
+  ../enum_extend/internal/pp_create_seq_from_1st_tuple2.hpp
+  ../enum_extend/internal/pp_create_seq_from_1st_tuple3.hpp
+  ../enum_extend/internal/pp_create_seq_from_tuple2_seq.hpp
+  ../enum_extend/internal/pp_create_seq_from_tuple3_seq.hpp
+  ../enum_extend/internal/pp_helper.hpp
   ../enum_extend/internal/tupple_helper.hpp
 )
 

@@ -19,6 +19,7 @@ set(HEADERS
 )
 
 set(SOURCE
+  enum_extend_macro_define_decoration_test.cpp
   enum_extend_filtered_range_test.cpp
   enum_extend_test.cpp
   enum_extend_declare_enum_test.cpp

@@ -26,7 +26,7 @@ enum Flags
 };
 
 template <>
-enum_extend::extender<Flags>::instances enum_extend::extender<Flags>::s_instances = {};
+enum_extend::extender<Flags>::instances enum_extend::extender<Flags>::all_values = {};
 enum_extend::extender<Flags>  FlagExtender(Flags::F0x00, Flags::F0x01, Flags::F0x02, Flags::F0x03, Flags::F0x04, Flags::F0x07, Flags::F0x08);
 
 

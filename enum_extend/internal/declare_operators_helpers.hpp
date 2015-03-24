@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ENUM_EXTEND_DECLARE_ENUM_OPERATORS_BASE(ENUM)                         \
+#define ENUM_EXTEND_DECLARE_ENUM_OPERATORS_I(ENUM)                         \
   ENUM& operator++(ENUM& e);                                                  \
   ENUM& operator--(ENUM& e);                                                  \
   ENUM operator++(ENUM& e, int);                                              \

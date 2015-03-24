@@ -27,27 +27,28 @@ ccharp MidGrayC = "MidGray";
 ccharp LightGrayC = "LightGray";
 
 template <>
-enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::s_instances = {};
-enum_extend::extender<Gray, ccharp> GrayExtender({ std::make_tuple( Gray::DarkGray, DarkGrayC ), 
-                                                    std::make_tuple( Gray::MidGray, MidGrayC ), 
-                                                    std::make_tuple( Gray::LightGray, LightGrayC ) });
+enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::all_values = {
+  std::make_tuple( Gray::DarkGray, DarkGrayC ), 
+  std::make_tuple( Gray::MidGray, MidGrayC ), 
+  std::make_tuple( Gray::LightGray, LightGrayC ) 
+};
 
 using DecoratedGray = std::tuple<Gray, ccharp>;
-DecoratedGray& operator++(DecoratedGray& e);
-DecoratedGray& operator--(DecoratedGray& e);
-DecoratedGray operator++(DecoratedGray& e, int);
-DecoratedGray operator--(DecoratedGray& e, int);
+Gray& operator++(Gray& e);
+Gray& operator--(Gray& e);
+Gray operator++(Gray& e, int);
+Gray operator--(Gray& e, int);
 
 
-DecoratedGray& operator++(DecoratedGray& e) { return enum_extend::extender<Gray, ccharp>::increment(e); }
-DecoratedGray& operator--(DecoratedGray& e) { return enum_extend::extender<Gray, ccharp>::decrement(e); }
-DecoratedGray operator++(DecoratedGray& e, int) {
+Gray& operator++(Gray& e) { return enum_extend::extender<Gray, ccharp>::increment(e); }
+Gray& operator--(Gray& e) { return enum_extend::extender<Gray, ccharp>::decrement(e); }
+Gray operator++(Gray& e, int) {
     auto tmp = e;                                                            
     enum_extend::extender<Gray, ccharp>::increment(e);
     return tmp;                                                              
   }          
 
-DecoratedGray operator--(DecoratedGray& e, int) {
+Gray operator--(Gray& e, int) {
     auto tmp = e;                                                            
     enum_extend::extender<Gray, ccharp>::decrement(e);
     return tmp;                                                              
@@ -143,37 +144,37 @@ TEST_F(EnumExtendWitDecorationTest, ReverseIterators)
 
 TEST_F(EnumExtendWitDecorationTest, PlusPlusOperator)
 {
-  auto c = std::make_tuple(Gray::DarkGray, DarkGrayC);
-  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), ++c);
-  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), ++c);
+  auto c = Gray::DarkGray;
+  EXPECT_EQ(Gray::MidGray, ++c);
+  EXPECT_EQ(Gray::LightGray, ++c);
   EXPECT_THROW(++c, std::exception);
 }
 
 TEST_F(EnumExtendWitDecorationTest, OperatorPlusPlus)
 {
-  auto c = std::make_tuple(Gray::DarkGray, DarkGrayC);
-  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), c++);
-  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), c++);
-  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), c);
+  auto c = Gray::DarkGray;
+  EXPECT_EQ(Gray::DarkGray, c++);
+  EXPECT_EQ(Gray::MidGray, c++);
+  EXPECT_EQ(Gray::LightGray, c);
   EXPECT_THROW(c++, std::exception);
 }
 
 
 TEST_F(EnumExtendWitDecorationTest, MinusMinusOperator)
 {
-  auto c = std::make_tuple(Gray::LightGray, LightGrayC);
-  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), --c);
-  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), --c);
+  auto c = Gray::LightGray;
+  EXPECT_EQ(Gray::MidGray, --c);
+  EXPECT_EQ(Gray::DarkGray, --c);
   
   EXPECT_THROW(--c, std::exception);
 }
 
 TEST_F(EnumExtendWitDecorationTest, OperatorMinusMinus)
 {
-  auto c = std::make_tuple(Gray::LightGray, LightGrayC);
-  EXPECT_EQ(std::make_tuple(Gray::LightGray, LightGrayC), c--);
-  EXPECT_EQ(std::make_tuple(Gray::MidGray, MidGrayC), c--);
-  EXPECT_EQ(std::make_tuple(Gray::DarkGray, DarkGrayC), c);
+  auto c = Gray::LightGray;
+  EXPECT_EQ(Gray::LightGray, c--);
+  EXPECT_EQ(Gray::MidGray, c--);
+  EXPECT_EQ(Gray::DarkGray, c);
   
   EXPECT_THROW(c--, std::exception);
 }

@@ -25,6 +25,80 @@ namespace enum_extend
   INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
+
+
+    template<bool Decorated, typename T, typename... D>
+    struct IncDecWorker;
+
+    template<typename T, typename... D>
+    struct IncDecWorker < true, T, D... >
+    {
+      static T&  inc(T& t) {
+        auto endIt = extender<T, D...>::end();
+        auto findIt = std::find_if(extender<T, D...>::begin(), endIt,
+          [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+
+        if (findIt != endIt) {
+          ++findIt;
+          if (findIt != endIt) {
+            t = std::get<0>(*findIt);
+            return t;
+          }
+        }
+        handle_error("Try to increment beyond the last element!");
+        return t;
+      }
+
+      static T& dec(T& t) {
+        auto findIt = std::find_if(extender<T, D...>::begin(), extender<T, D...>::end(),
+          [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+
+        if (findIt != extender<T, D...>::end()) {
+          if (findIt != extender<T, D...>::begin()) {
+            --findIt;
+            t = std::get<0>(*findIt);
+            return t;
+          }
+        }
+        handle_error("Try to decrement before the first element!");
+        return t;
+      }
+
+    };
+
+    template<typename T, typename... D>
+    struct IncDecWorker < false, T, D... >
+    {
+      static T& inc(T& t) {
+        auto endIt = extender<T, D...>::end();
+        auto findIt = std::find(extender<T, D...>::begin(), endIt, t);
+        if (findIt != endIt) {
+          ++findIt;
+          if (findIt != endIt) {
+            t = *findIt;
+            return t;
+          }
+        }
+        handle_error("Try to increment beyond the last element!");
+        return t;
+      }
+
+      static T& dec(T& t) {
+        auto findIt = std::find(extender<T, D...>::begin(), extender<T, D...>::end(), t);
+        if (findIt != extender<T, D...>::end()) {
+          if (findIt != extender<T, D...>::begin()) {
+            --findIt;
+            t = *findIt;
+            return t;
+          }
+        }
+        handle_error("Try to decrement before the first element!");
+        return t;
+      }
+    };
+
+
+
     template<typename T, typename... D>
     class extender
     {
@@ -32,6 +106,7 @@ namespace enum_extend
       using value_type_ = typename std::conditional<is_decorated_, std::tuple<T, D...>, T>::type;
     public:
 
+      static const bool is_decorated = is_decorated_;
       using value_type = value_type_;
       using instances = std::vector<value_type>;
       using const_iterator = typename instances::const_iterator;
@@ -44,55 +119,39 @@ namespace enum_extend
 
       template <typename...TT>
       extender(TT&&... t) {
-        s_instances = { std::forward<TT>(t)... };
+        all_values = { std::forward<TT>(t)... };
       }
 
       extender(std::initializer_list<value_type> init)
       {
-        std::copy(init.begin(), init.end(), std::back_inserter(s_instances));
+        std::copy(init.begin(), init.end(), std::back_inserter(all_values));
       }
 
-      static const_iterator begin() { return s_instances.cbegin(); }
-      static const_iterator cbegin() { return s_instances.cbegin(); }
-      static const_iterator end() { return s_instances.cend(); }
-      static const_iterator cend() { return s_instances.cend(); }
-      static const_reverse_iterator crbegin() { return s_instances.crbegin(); }
-      static const_reverse_iterator rbegin() { return s_instances.crbegin(); }
-      static const_reverse_iterator crend() { return s_instances.crend(); }
-      static const_reverse_iterator rend() { return s_instances.crend(); }
+      static const_iterator begin() { return all_values.cbegin(); }
+      static const_iterator cbegin() { return all_values.cbegin(); }
+      static const_iterator end() { return all_values.cend(); }
+      static const_iterator cend() { return all_values.cend(); }
+      static const_reverse_iterator crbegin() { return all_values.crbegin(); }
+      static const_reverse_iterator rbegin() { return all_values.crbegin(); }
+      static const_reverse_iterator crend() { return all_values.crend(); }
+      static const_reverse_iterator rend() { return all_values.crend(); }
 
-      static size_t size() { return s_instances.size(); }
+      static size_t size() { return all_values.size(); }
 
-      static value_type& increment(value_type& t) {
-        auto findIt = std::find(begin(), end(), t);
-        if (findIt != end()) {
-          ++findIt;
-          if (findIt != end()) {
-            t = *findIt;
-            return t;
-          }
-        }
-        handle_error("Try to increment beyond the last element!");
-        return t;
+      static T& increment(T& t) {
+        return IncDecWorker<is_decorated_, T, D...>::inc(t);
       }
 
-      static value_type& decrement(value_type& t) {
-        auto findIt = std::find(begin(), end(), t);
-        if (findIt != end()) {
-          if (findIt != begin()) {
-            --findIt;
-            t = *findIt;
-            return t;
-          }
-        }
-        handle_error("Try to decrement before the first element!");
-        return t;
+      static T& decrement(T& t) {
+        return IncDecWorker<is_decorated_, T, D...>::dec(t);
       }
 
       template <typename TT>
-      static typename std::enable_if<is_decorated_, TT>::type get_decoration(const T& t)
+      static typename std::enable_if<is_decorated_, TT>::type 
+        get_decoration(const T& t)
       {
-        auto findIt = std::find_if(begin(), end(), [&t](const value_type& v) { return std::get<0>(v) == t; });
+        auto findIt = std::find_if(begin(), end(), 
+                                   [&t](const value_type& v) { return std::get<0>(v) == t; });
         if (findIt != end())
         {
           return std::get<TupleTypeIndex<TT, value_type>::value>(*findIt);
@@ -102,7 +161,7 @@ namespace enum_extend
       }
     private:
 
-      static instances s_instances;
+      static instances all_values;
     };
   }
   USING_VERSION_NAMESPACE

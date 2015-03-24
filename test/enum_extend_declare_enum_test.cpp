@@ -9,15 +9,7 @@
 //////////////////////////////////////////////////////////////////
 
 #include "enum_extend/declare_enum.hpp"
-#include "enum_extend/declare_enum_class.hpp"
-#include "enum_extend/declare_typed_enum.hpp"
-#include "enum_extend/declare_typed_enum_class.hpp"
-
 #include "enum_extend/define_enum.hpp"
-#include "enum_extend/define_enum_class.hpp"
-#include "enum_extend/define_typed_enum.hpp"
-#include "enum_extend/define_typed_enum_class.hpp"
-
 #include "enum_extend/range.hpp"
 
 #include <gtest/gtest.h>
