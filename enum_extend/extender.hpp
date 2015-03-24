@@ -25,81 +25,10 @@ namespace enum_extend
   INLINE_NAMESPACE_STANDIN 
   namespace v_1_0_0
   {
-
-
     template<bool Decorated, typename T, typename... D>
     struct IncDecWorker;
 
-    template<typename T, typename... D>
-    struct IncDecWorker < true, T, D... >
-    {
-      static T&  inc(T& t) {
-        auto endIt = extender<T, D...>::end();
-        auto findIt = std::find_if(extender<T, D...>::begin(), endIt,
-          [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
-
-        if (findIt != endIt) {
-          ++findIt;
-          if (findIt != endIt) {
-            t = std::get<0>(*findIt);
-            return t;
-          }
-        }
-        handle_error("Try to increment beyond the last element!");
-        return t;
-      }
-
-      static T& dec(T& t) {
-        auto findIt = std::find_if(extender<T, D...>::begin(), extender<T, D...>::end(),
-          [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
-
-        if (findIt != extender<T, D...>::end()) {
-          if (findIt != extender<T, D...>::begin()) {
-            --findIt;
-            t = std::get<0>(*findIt);
-            return t;
-          }
-        }
-        handle_error("Try to decrement before the first element!");
-        return t;
-      }
-
-    };
-
-    template<typename T, typename... D>
-    struct IncDecWorker < false, T, D... >
-    {
-      static T& inc(T& t) {
-        auto endIt = extender<T, D...>::end();
-        auto findIt = std::find(extender<T, D...>::begin(), endIt, t);
-        if (findIt != endIt) {
-          ++findIt;
-          if (findIt != endIt) {
-            t = *findIt;
-            return t;
-          }
-        }
-        handle_error("Try to increment beyond the last element!");
-        return t;
-      }
-
-      static T& dec(T& t) {
-        auto findIt = std::find(extender<T, D...>::begin(), extender<T, D...>::end(), t);
-        if (findIt != extender<T, D...>::end()) {
-          if (findIt != extender<T, D...>::begin()) {
-            --findIt;
-            t = *findIt;
-            return t;
-          }
-        }
-        handle_error("Try to decrement before the first element!");
-        return t;
-      }
-    };
-
-
-
-    template<typename T, typename... D>
+      template<typename T, typename... D>
     class extender
     {
       static const bool is_decorated_ = sizeof...(D) != 0;
@@ -163,6 +92,75 @@ namespace enum_extend
 
       static instances all_values;
     };
+
+
+    template<typename T, typename... D>
+    struct IncDecWorker < true, T, D... >
+    {
+      static T&  inc(T& t) {
+        auto endIt = extender<T, D...>::end();
+        auto findIt = std::find_if(extender<T, D...>::begin(), endIt,
+                [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+
+        if (findIt != endIt) {
+          ++findIt;
+          if (findIt != endIt) {
+            t = std::get<0>(*findIt);
+            return t;
+          }
+        }
+        handle_error("Try to increment beyond the last element!");
+        return t;
+      }
+
+      static T& dec(T& t) {
+        auto findIt = std::find_if(extender<T, D...>::begin(), extender<T, D...>::end(),
+                [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+
+        if (findIt != extender<T, D...>::end()) {
+          if (findIt != extender<T, D...>::begin()) {
+            --findIt;
+            t = std::get<0>(*findIt);
+            return t;
+          }
+        }
+        handle_error("Try to decrement before the first element!");
+        return t;
+      }
+
+    };
+
+    template<typename T, typename... D>
+    struct IncDecWorker < false, T, D... >
+    {
+      static T& inc(T& t) {
+        auto endIt = extender<T, D...>::end();
+        auto findIt = std::find(extender<T, D...>::begin(), endIt, t);
+        if (findIt != endIt) {
+          ++findIt;
+          if (findIt != endIt) {
+            t = *findIt;
+            return t;
+          }
+        }
+        handle_error("Try to increment beyond the last element!");
+        return t;
+      }
+
+      static T& dec(T& t) {
+        auto findIt = std::find(extender<T, D...>::begin(), extender<T, D...>::end(), t);
+        if (findIt != extender<T, D...>::end()) {
+          if (findIt != extender<T, D...>::begin()) {
+            --findIt;
+            t = *findIt;
+            return t;
+          }
+        }
+        handle_error("Try to decrement before the first element!");
+        return t;
+      }
+    };
+
   }
   USING_VERSION_NAMESPACE
 }
