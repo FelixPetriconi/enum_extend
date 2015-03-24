@@ -42,7 +42,7 @@ Which expands to
 
 ~~~C++
 template <>
-enum_extend::extender<RGBColors>::instances enum_extend::extender<RGBColors>::s_instances = {
+enum_extend::extender<RGBColors>::instances enum_extend::extender<RGBColors>::all_values = {
   RGBColors::Red, RGBColors::Green, RGBColors::Blue
 };
 
@@ -141,7 +141,7 @@ enum class Gray
 
 template <>
 enum_extend::extender<Gray, const char*>::instances 
-  enum_extend::extender<Gray, const char*>::s_instances = {
+  enum_extend::extender<Gray, const char*>::all_values = {
     std::make_tuple( Gray::DarkGray, "DarkGray" ), 
     std::make_tuple( Gray::MidGray, "MidGray" ), 
     std::make_tuple( Gray::LightGray, "LightGray" ) 
@@ -172,7 +172,7 @@ enum class Gray
 using DecoratedGray = enum_extend::extender<Gray, const char*, TranslatedText>;
 
 template <>
-DecoratedGray::instances DecoratedGray::s_instances = {
+DecoratedGray::instances DecoratedGray::all_values = {
     std::make_tuple( Gray::DarkGray, "DarkGray", TranslatedString("Dark Gray")) ), 
     std::make_tuple( Gray::MidGray, "MidGray", TranslatedString("Mid Gray")) ), 
     std::make_tuple( Gray::LightGray, TranslatedString("Light Gray") ) 
