@@ -17,16 +17,16 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQU
 endif()
 
 if (WIN32)
-    set(BOOST_ROOT D:/boost_1_55_0)
     add_definitions("-D_CRT_SECURE_NO_WARNINGS")
     set(CMAKE_CXX_FLAGS_DEBUG_INIT "/MDd /EHsc")
 endif ()
 
+set(BOOST_ROOT D:/boost_1_55_0)
 set(Boost_USE_STATIC_LIBS        OFF)
 set(Boost_USE_MULTITHREADED      OFF)
 set(Boost_USE_STATIC_RUNTIME     OFF)
 #set(BOOST_ALL_DYN_LINK           ON) 
-find_package( Boost 1.57.0 )
+find_package( Boost 1.55.0 )
 
 add_subdirectory(tools/gtest-1.7.0)
 add_subdirectory(source)
