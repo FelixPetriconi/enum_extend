@@ -11,7 +11,6 @@
 #include "enum_extend/extender.hpp"
 #include "enum_extend/range.hpp"
 #include "enum_extend/enum_range.hpp"
-#include "enum_extend/decoration_range.hpp"
 #include "enum_extend/declare_decorated_enum.hpp"
 #include "enum_extend/define_decorated_enum.hpp"
 
@@ -28,7 +27,8 @@ template <typename T>
 std::vector<T> createReference();
 
 
-#define MACROCOLOR_DECO_ENUM_SPEC (MacroColorDecoEnum, ccharp, (DarkGray1, DarkGray1C)(MidGray1, MidGray1C)(LightGray1, LightGray1C))
+#define MACROCOLOR_DECO_ENUM_SPEC (MacroColorDecoEnum, ccharp, \
+  (DarkGray1, DarkGray1C)(MidGray1, MidGray1C)(LightGray1, LightGray1C))
 
 ENUM_EXTEND_DECLARE_1_DECORATED_ENUM(MACROCOLOR_DECO_ENUM_SPEC)
 ENUM_EXTEND_DEFINE_1_DECORATED_ENUM(MACROCOLOR_DECO_ENUM_SPEC)
@@ -46,7 +46,8 @@ ccharp DarkGray2C = "DarkGray2";
 ccharp MidGray2C = "MidGray2";
 ccharp LightGray2C = "LightGray2";
 
-#define MACROCOLOR_DECO_ENUM_CLASS_SPEC (MacroColorDecoEnumClass, ccharp, (DarkGray2, DarkGray2C)(MidGray2, MidGray2C)(LightGray2, LightGray2C))
+#define MACROCOLOR_DECO_ENUM_CLASS_SPEC (MacroColorDecoEnumClass, ccharp, \
+  (DarkGray2, DarkGray2C)(MidGray2, MidGray2C)(LightGray2, LightGray2C))
 
 ENUM_EXTEND_DECLARE_1_DECORATED_ENUM_CLASS(MACROCOLOR_DECO_ENUM_CLASS_SPEC)
 ENUM_EXTEND_DEFINE_1_DECORATED_ENUM_CLASS(MACROCOLOR_DECO_ENUM_CLASS_SPEC)
@@ -63,7 +64,8 @@ ccharp DarkGray3C = "DarkGray3";
 ccharp MidGray3C = "MidGray3";
 ccharp LightGray3C = "LightGray3";
 
-#define MACROCOLOR_DECO_TYPED_ENUM_SPEC (MacroColorDecoTypedEnum, short, ccharp, (DarkGray3, DarkGray3C)(MidGray3, MidGray3C)(LightGray3, LightGray3C))
+#define MACROCOLOR_DECO_TYPED_ENUM_SPEC (MacroColorDecoTypedEnum, short, ccharp, \
+  (DarkGray3, DarkGray3C)(MidGray3, MidGray3C)(LightGray3, LightGray3C))
 ENUM_EXTEND_DECLARE_1_DECORATED_TYPED_ENUM(MACROCOLOR_DECO_TYPED_ENUM_SPEC)
 ENUM_EXTEND_DEFINE_1_DECORATED_TYPED_ENUM(MACROCOLOR_DECO_TYPED_ENUM_SPEC)
 
@@ -80,7 +82,8 @@ ccharp DarkGray4C = "DarkGray4";
 ccharp MidGray4C = "MidGray4";
 ccharp LightGray4C = "LightGray4";
 
-#define MACROCOLOR_DECO_TYPED_ENUM_CLASS_SPEC (MacroColorDecoTypedEnumClass, short, ccharp, (DarkGray4, DarkGray4C)(MidGray4, MidGray4C)(LightGray4, LightGray4C))
+#define MACROCOLOR_DECO_TYPED_ENUM_CLASS_SPEC (MacroColorDecoTypedEnumClass, short, ccharp, \
+  (DarkGray4, DarkGray4C)(MidGray4, MidGray4C)(LightGray4, LightGray4C))
 ENUM_EXTEND_DECLARE_1_DECORATED_TYPED_ENUM_CLASS(MACROCOLOR_DECO_TYPED_ENUM_CLASS_SPEC)
 ENUM_EXTEND_DEFINE_1_DECORATED_TYPED_ENUM_CLASS(MACROCOLOR_DECO_TYPED_ENUM_CLASS_SPEC)
 

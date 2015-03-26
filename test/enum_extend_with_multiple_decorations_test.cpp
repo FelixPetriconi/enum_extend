@@ -48,13 +48,6 @@ enum_extend::extender<Blue, StructuredDeco, ccharp>::instances
     std::make_tuple( Blue::LightBlue, sdLightBlue, LightBlueC ) 
   };
 
-using DecoratedBlue = std::tuple<Blue, StructuredDeco, ccharp>;
-Blue& operator++(Blue& e);
-Blue& operator--(Blue& e);
-Blue operator++(Blue& e, int);
-Blue operator--(Blue& e, int);
-
-
 Blue& operator++(Blue& e) { 
   return enum_extend::extender<Blue, StructuredDeco, ccharp>::increment(e); 
 }

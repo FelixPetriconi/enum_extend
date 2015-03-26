@@ -27,35 +27,28 @@ ccharp MidGrayC = "MidGray";
 ccharp LightGrayC = "LightGray";
 
 template <>
-enum_extend::extender<Gray, ccharp>::instances enum_extend::extender<Gray, ccharp>::all_values = {
+enum_extend::extender<Gray, ccharp>::instances 
+  enum_extend::extender<Gray, ccharp>::all_values = {
+  
   std::make_tuple( Gray::DarkGray, DarkGrayC ), 
   std::make_tuple( Gray::MidGray, MidGrayC ), 
   std::make_tuple( Gray::LightGray, LightGrayC ) 
 };
 
-using DecoratedGray = std::tuple<Gray, ccharp>;
-Gray& operator++(Gray& e);
-Gray& operator--(Gray& e);
-Gray operator++(Gray& e, int);
-Gray operator--(Gray& e, int);
-
 
 Gray& operator++(Gray& e) { return enum_extend::extender<Gray, ccharp>::increment(e); }
 Gray& operator--(Gray& e) { return enum_extend::extender<Gray, ccharp>::decrement(e); }
 Gray operator++(Gray& e, int) {
-    auto tmp = e;                                                            
-    enum_extend::extender<Gray, ccharp>::increment(e);
-    return tmp;                                                              
-  }          
+  auto tmp = e;                                                            
+  enum_extend::extender<Gray, ccharp>::increment(e);
+  return tmp;                                                              
+}          
 
 Gray operator--(Gray& e, int) {
-    auto tmp = e;                                                            
-    enum_extend::extender<Gray, ccharp>::decrement(e);
-    return tmp;                                                              
-  }                                                                          
-
-
-
+  auto tmp = e;                                                            
+  enum_extend::extender<Gray, ccharp>::decrement(e);
+  return tmp;                                                              
+}                                                                          
 
 
 class EnumExtendWitDecorationTest : public ::testing::Test
