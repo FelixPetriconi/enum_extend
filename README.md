@@ -16,7 +16,7 @@ The following is possible with this library:
 
 ~~~
   using enum_extend::range;
-  using enum_extend::extend;
+  using enum_extend::extender;
   using enum_extend::filtered_range;
   
   enum Color
@@ -37,8 +37,8 @@ The following is possible with this library:
 
   // We iterate in reverse order over all defined values
   std::vector<Color> allReverseColors;
-  std::copy(extend<Color>::rbegin(),
-            extend<Color>::rend(), 
+  std::copy(extender<Color>::rbegin(),
+            extender<Color>::rend(), 
             std::back_inserter(allReverseColors));
 
 
