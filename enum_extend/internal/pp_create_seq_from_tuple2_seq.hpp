@@ -20,7 +20,7 @@
 // initializerlist of {a,b}, {c,d}, ...
 #define ENUM_EXTEND_EXPAND_TUPLE_ELEMENT_INTO_STD_MAKE_TUPLE2(r,enum_type, index, tuple_elements) \
   BOOST_PP_COMMA_IF(index) std::make_tuple(                                   \
-    ENUM_EXTEND_QUALIFY(enum_type, BOOST_PP_TUPLE_ELEM(2, 0, tuple_elements)),                                \
+    ENUM_EXTEND_QUALIFY(enum_type, BOOST_PP_TUPLE_ELEM(2, 0, tuple_elements)),\
     BOOST_PP_TUPLE_ELEM(2, 1, tuple_elements)                                 \
   )
 

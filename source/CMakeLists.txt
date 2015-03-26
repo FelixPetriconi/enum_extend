@@ -26,7 +26,6 @@ set(HEADERS
   ../enum_extend/internal/define_operators_helpers.hpp
   ../enum_extend/internal/error_handling.hpp
   ../enum_extend/internal/helper_structs.hpp
-  ../enum_extend/internal/macro_helper.hpp
   ../enum_extend/internal/pp_create_seq_from_1st_tuple2.hpp
   ../enum_extend/internal/pp_create_seq_from_1st_tuple3.hpp
   ../enum_extend/internal/pp_create_seq_from_tuple2_seq.hpp

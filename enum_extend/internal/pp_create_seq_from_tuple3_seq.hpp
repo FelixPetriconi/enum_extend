@@ -22,7 +22,7 @@
 // std::make_tyupe(a,b,c), std::make_tuple(d,e,f)...
 #define ENUM_EXTEND_EXPAND_TUPLE_ELEMENT_INTO_STD_MAKE_TUPLE3(r,enum_type, index, tuple_elements) \
   BOOST_PP_COMMA_IF(index) std::make_tuple(                                   \
-    ENUM_EXTEND_CAT(ENUM_EXTEND_CAT(enum_type,::),BOOST_PP_TUPLE_ELEM(3, 0, tuple_elements)),                                \
+    ENUM_EXTEND_CAT(ENUM_EXTEND_CAT(enum_type,::),BOOST_PP_TUPLE_ELEM(3, 0, tuple_elements)),\
     BOOST_PP_TUPLE_ELEM(3, 1, tuple_elements),                                \
     BOOST_PP_TUPLE_ELEM(3, 2, tuple_elements)                                 \
   )

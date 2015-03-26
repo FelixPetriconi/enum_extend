@@ -18,9 +18,9 @@
 
 // \p (ENUM, ENUMERATIONS)
 #define ENUM_EXTEND_DEFINE_ENUM(DEF)                                          \
-  ENUM_EXTEND_DEFINE_ENUM_I(BOOST_PP_TUPLE_ELEM(2, 0, DEF),                \
+  ENUM_EXTEND_DEFINE_ENUM_I(BOOST_PP_TUPLE_ELEM(2, 0, DEF),                   \
                                BOOST_PP_TUPLE_ELEM(2, 1, DEF))                \
-  ENUM_EXTEND_DEFINE_ENUM_OPERATORS_I(BOOST_PP_TUPLE_ELEM(2, 0, DEF))      \
+  ENUM_EXTEND_DEFINE_ENUM_OPERATORS_I(BOOST_PP_TUPLE_ELEM(2, 0, DEF))         \
 
 // \p (ENUM, ENUMERATIONS)
 #define ENUM_EXTEND_DEFINE_ENUM_CLASS(DEF)                                    \
@@ -29,9 +29,9 @@
 
 // \p (ENUM, TYPE, ENUMERATIONS)
 #define ENUM_EXTEND_DEFINE_TYPED_ENUM(DEF)                                    \
-  ENUM_EXTEND_DEFINE_ENUM_I(BOOST_PP_TUPLE_ELEM(3, 0, DEF),                \
+  ENUM_EXTEND_DEFINE_ENUM_I(BOOST_PP_TUPLE_ELEM(3, 0, DEF),                   \
                                BOOST_PP_TUPLE_ELEM(3, 2, DEF))                \
-  ENUM_EXTEND_DEFINE_ENUM_OPERATORS_I(BOOST_PP_TUPLE_ELEM(3, 0, DEF))      \
+  ENUM_EXTEND_DEFINE_ENUM_OPERATORS_I(BOOST_PP_TUPLE_ELEM(3, 0, DEF))         \
 
 // \p (ENUM, TYPE, ENUMERATIONS)
 #define ENUM_EXTEND_DEFINE_TYPED_ENUM_CLASS(DEF)                              \

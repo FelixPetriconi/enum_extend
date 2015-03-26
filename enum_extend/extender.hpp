@@ -28,14 +28,15 @@ namespace enum_extend
     template<bool Decorated, typename T, typename... D>
     struct IncDecWorker;
 
-      template<typename T, typename... D>
+
+    template<typename T, typename... D>
     class extender
     {
       static const bool is_decorated_ = sizeof...(D) != 0;
-      using value_type_ = typename std::conditional<is_decorated_, std::tuple<T, D...>, T>::type;
+      using value_type_ = typename std::conditional<is_decorated_, 
+                                                    std::tuple<T, D...>, 
+                                                    T>::type;
     public:
-
-      static const bool is_decorated = is_decorated_;
       using value_type = value_type_;
       using instances = std::vector<value_type>;
       using const_iterator = typename instances::const_iterator;
@@ -77,12 +78,13 @@ namespace enum_extend
 
       template <typename TT>
       static typename std::enable_if<is_decorated_, TT>::type 
-        get_decoration(const T& t)
-      {
+        get_decoration(const T& t) {
+        
         auto findIt = std::find_if(begin(), end(), 
-                                   [&t](const value_type& v) { return std::get<0>(v) == t; });
-        if (findIt != end())
-        {
+                                   [&t](const value_type& v) {
+                                     return std::get<0>(v) == t;
+                                   });
+        if (findIt != end()) {
           return std::get<TupleTypeIndex<TT, value_type>::value>(*findIt);
         }
         handle_error("Access to not defined enumerated value!");
@@ -100,7 +102,9 @@ namespace enum_extend
       static T&  inc(T& t) {
         auto endIt = extender<T, D...>::end();
         auto findIt = std::find_if(extender<T, D...>::begin(), endIt,
-                [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+                                   [&t](const typename extender<T, D...>::value_type& x) {
+                                     return std::get<0>(x) == t;
+                                  });
 
         if (findIt != endIt) {
           ++findIt;
@@ -115,7 +119,9 @@ namespace enum_extend
 
       static T& dec(T& t) {
         auto findIt = std::find_if(extender<T, D...>::begin(), extender<T, D...>::end(),
-                [&t](const typename extender<T, D...>::value_type& x) { return std::get<0>(x) == t; });
+                [&t](const typename extender<T, D...>::value_type& x) {
+                  return std::get<0>(x) == t;
+                });
 
         if (findIt != extender<T, D...>::end()) {
           if (findIt != extender<T, D...>::begin()) {

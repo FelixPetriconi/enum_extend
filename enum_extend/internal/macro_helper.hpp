@@ -10,19 +10,3 @@
 
 #pragma once
 
-#include <boost/preprocessor/cat.hpp>
-
-// Inspired by Andrej Alexandrescu's ScopeGuard.h
-// Some compiler does not support __COUNTER__ so there is an alternative
-// implementation with __LINE__
-
-#ifdef __COUNTER__
-#define ANONYMOUS_VARIABLE(str)                                               \
-  BOOST_PP_CAT(str,__COUNTER__)
-#else
-#define ANONYMOUS_VARIABLE(str)                                               \
-  BOOST_PP_CAT(str,__LINE__)
-#endif
-
-#define ENUM_EXTEND_COLON_GLUE(r, data, elem) data::elem
-#define ENUM_EXTEND_EMBRACER(r, nil, elem) BOOST_PP_CAT( {, BOOST_PP_CAT(elem, } ) )

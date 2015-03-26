@@ -12,7 +12,7 @@
 
 #include "../extender.hpp"
 #include "define_operators_helpers.hpp"
-#include "macro_helper.hpp"
+#include "pp_helper.hpp"
 
 #include <boost/preprocessor/seq/transform.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
