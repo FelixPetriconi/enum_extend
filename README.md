@@ -67,6 +67,7 @@ Macros exist as well for creating an enum class or a typed enum class.
 Documentation
 -------------
 A first tutorial is [here](https://github.com/FelixPetriconi/enum_extend/wiki/Tutorial)
+A summary of all macros is [here](https://github.com/FelixPetriconi/enum_extend/wiki/Documentation)
 
 Author 
 ------
@@ -116,5 +117,5 @@ Installation Win
   
 ToDo
 ----
- * Docs
+ * Doxygen documentation
  
