@@ -182,6 +182,5 @@ DecoratedGray::instances DecoratedGray::all_values = {
 Now one could access each associated type with:
 
 ~~~C++
-
 widget->setText( DecoratedGray::to_decoration<TranslatedText>(Gray::MidGray).text() );
 ~~~

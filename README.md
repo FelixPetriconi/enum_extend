@@ -5,9 +5,9 @@ A C++ library that extends the functionality of enums.
 
 Motivation
 ----------
-C++, the STL and boost lacks some often needed functionality in regard to enums:
+C++, the STL and boost lack some often needed functionality in regard to enums:
 * It is not possible to iterate over all defined enumerated values.
-* There is no operator++/-- to advance to the next defined enumerated value.
+* There are no pre or postfix ++/-- operators to advance to the next defined enumerated value.
 * Often enumerated values needs a string representation to further operations - at least to log those into files.
 
 Enum Extend Library Overview
@@ -101,7 +101,7 @@ Platform
 | Compiler | Status |
 -----------|---------
 | Visual Studio 2013 x64 | All tests pass |
-| clang | All tests pass |
+| Clang 3.6 | All tests pass |
 
 
 Installation Win
